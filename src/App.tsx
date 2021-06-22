@@ -1,6 +1,9 @@
+import { Home } from "./pages/Home";
+import './styles/global.scss'
+
 function App() {
   return (
-   <h1>Hello Word</h1>
+    <Home/>
   );
 }
 
