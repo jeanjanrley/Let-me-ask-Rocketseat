@@ -7,7 +7,7 @@ import {firebase, auth} from './services/firebase';
 
 type AuthContextType = {
   user: User | undefined;
-  signInWithGoogle: () => void;
+  signInWithGoogle: () => {};
 }
 
 type User = {
@@ -36,22 +36,21 @@ function App() {
               setUser({
                 id: uid,
                 nome: displayName,
-                avatar: photoURL,
-              
+                avatar: photoURL
               })
             }
-          }
-        )}
+            
+  }
 
   return(
-
+    
     <BrowserRouter>
       <AuthContext.Provider value={{user, signInWithGoogle}}>
           <Route path="/rooms/new" exact component={Home}/>
           <Route path="/rooms/new" component={NewRoom}/>
       </AuthContext.Provider>
     </BrowserRouter>
-
-  )}
+  );
+}
 
 export default App;

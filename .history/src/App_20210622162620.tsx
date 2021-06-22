@@ -1,25 +1,24 @@
 import {BrowserRouter ,Route} from 'react-router-dom'
 import { createContext, useState } from 'react'
 import { NewRoom } from "./pages/NewRoom";
-import {Home} from './pages/Home'
+import { Home } from "./pages/Home";
 import './styles/global.scss'
 import {firebase, auth} from './services/firebase';
 
 type AuthContextType = {
-  user: User | undefined;
-  signInWithGoogle: () => void;
+  user: User | undefined,
+  signInWithGoogle: () => {},
 }
 
 type User = {
-  id: string;
-  nome: string;
-  avatar: string;
+  id: string,
+  nome: string,
+  avatar: string,
 }
 
-export const AuthContext = createContext({} as AuthContextType);
+export const authContext = createContext({} as AuthContextType);
 
 function App() {
-
   const [user, setUser] = useState<User>()
 
   function signInWithGoogle(){
@@ -36,22 +35,20 @@ function App() {
               setUser({
                 id: uid,
                 nome: displayName,
-                avatar: photoURL,
-              
+                avatar: photoURL
               })
             }
-          }
-        )}
+            
+  }
 
-  return(
-
+  return (
     <BrowserRouter>
-      <AuthContext.Provider value={{user, signInWithGoogle}}>
-          <Route path="/rooms/new" exact component={Home}/>
+      <authContext.Provider value={{user, signInWithGoogle}}>
+          <Route path="/" exact component={Home}/>
           <Route path="/rooms/new" component={NewRoom}/>
-      </AuthContext.Provider>
+      </authContext.Provider>
     </BrowserRouter>
-
-  )}
+  );
+}
 
 export default App;

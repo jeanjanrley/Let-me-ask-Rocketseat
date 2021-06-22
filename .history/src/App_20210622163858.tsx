@@ -7,7 +7,7 @@ import {firebase, auth} from './services/firebase';
 
 type AuthContextType = {
   user: User | undefined;
-  signInWithGoogle: () => void;
+  signInWithGoogle: () => {};
 }
 
 type User = {
@@ -18,7 +18,7 @@ type User = {
 
 export const AuthContext = createContext({} as AuthContextType);
 
-function App() {
+function App() {]
 
   const [user, setUser] = useState<User>()
 
@@ -26,7 +26,8 @@ function App() {
     const provider = new firebase.auth.GoogleAuthProvider();
 
         auth.signInWithPopup(provider).then(result => {
-            if (result.user){
+            
+          if (result.user){
               const {displayName, photoURL, uid} = result.user
 
               if(!displayName || !photoURL){
@@ -36,22 +37,20 @@ function App() {
               setUser({
                 id: uid,
                 nome: displayName,
-                avatar: photoURL,
-              
+                avatar: photoURL
               })
             }
-          }
-        )}
+            
+  }
 
   return(
-
     <BrowserRouter>
       <AuthContext.Provider value={{user, signInWithGoogle}}>
           <Route path="/rooms/new" exact component={Home}/>
           <Route path="/rooms/new" component={NewRoom}/>
       </AuthContext.Provider>
     </BrowserRouter>
-
-  )}
+  );
+}
 
 export default App;

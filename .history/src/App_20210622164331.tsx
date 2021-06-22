@@ -7,7 +7,7 @@ import {firebase, auth} from './services/firebase';
 
 type AuthContextType = {
   user: User | undefined;
-  signInWithGoogle: () => void;
+  signInWithGoogle: () => {};
 }
 
 type User = {
@@ -41,7 +41,6 @@ function App() {
               })
             }
           }
-        )}
 
   return(
 
