@@ -25,7 +25,7 @@ function App() {
   useEffect(() => {
     auth.onAuthStateChanged(user => {
       if (user){
-        const {displayName, photoURL, uid} = user
+        const {displayName, photoURL, uid} = user.user
 
               if(!displayName || !photoURL){
                 throw new Error('Missing information from Google account.')

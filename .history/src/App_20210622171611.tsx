@@ -22,27 +22,9 @@ function App() {
 
   const [user, setUser] = useState<User>()
 
-  useEffect(() => {
-    auth.onAuthStateChanged(user => {
-      if (user){
-        const {displayName, photoURL, uid} = user
+  useEf
 
-              if(!displayName || !photoURL){
-                throw new Error('Missing information from Google account.')
-              }
-
-              setUser({
-                id: uid,
-                nome: displayName,
-                avatar: photoURL,
-              
-              })
-      }
-    })
-
-  }, [])
-
-
+  
   async function signInWithGoogle(){
     const provider = new firebase.auth.GoogleAuthProvider();
 

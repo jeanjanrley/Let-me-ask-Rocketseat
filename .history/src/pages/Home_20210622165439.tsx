@@ -11,13 +11,10 @@ import { AuthContext } from '../App'
 export function Home() {
 
     const history = useHistory()
-    const { user, signInWithGoogle } = useContext(AuthContext)
+    const { signInWithGoogle } - useContext(AuthContext)
 
-    async function handleCreteRoom(){
-        if (!user){
-            await signInWithGoogle()
-        }
-        history.push('/rooms/new')
+    function handleCreteRoom(){
+            history.push('/rooms/new')
             
         }
 

@@ -13,9 +13,9 @@ export function Home() {
     const history = useHistory()
     const { user, signInWithGoogle } = useContext(AuthContext)
 
-    async function handleCreteRoom(){
+    function handleCreteRoom(){
         if (!user){
-            await signInWithGoogle()
+            awaisignInWithGoogle()
         }
         history.push('/rooms/new')
             
