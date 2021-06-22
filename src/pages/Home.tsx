@@ -5,7 +5,7 @@ import logoImg from '../assets/images/logo.svg'
 import googleIconImg from '../assets/images/google-icon.svg'
 import '../styles/auth.scss'
 import { Button } from '../components/button'
-import { firebase, auth } from '../services/firebase'
+import { auth, firebase  } from '../services/firebase'
 
 export function Home() {
 
@@ -14,7 +14,7 @@ export function Home() {
     )
 
     function handleCreteRoom(){
-        const provider = new firebase.auth.GithubAuthProvider();
+        const provider = new firebase.auth.GoogleAuthProvider();
 
         auth.signInWithPopup(provider).then(result => {
             console.log(result)
