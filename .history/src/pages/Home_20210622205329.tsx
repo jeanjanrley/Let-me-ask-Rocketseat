@@ -4,6 +4,8 @@ import logoImg from '../assets/images/logo.svg'
 import googleIconImg from '../assets/images/google-icon.svg'
 import '../styles/auth.scss'
 import { Button } from '../components/button'
+import { useContext } from 'react'
+import { AuthContext } from '../contexts/AuthContext'
 import { useAuth } from '../hooks/useAuth'
 
 

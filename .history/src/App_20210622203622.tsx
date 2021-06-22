@@ -1,12 +1,10 @@
 import {BrowserRouter ,Route} from 'react-router-dom'
-
 import { NewRoom } from "./pages/NewRoom";
 import {Home} from './pages/Home'
-
 import './styles/global.scss'
 
 
-import { AuthContextProvider } from './contexts/AuthContext'
+import { AuthContextProvider } from './contexts/AuthCotext'
 
 function App() {
 
