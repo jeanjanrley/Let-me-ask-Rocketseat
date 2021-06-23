@@ -5,8 +5,7 @@ import googleIconImg from '../assets/images/google-icon.svg'
 import '../styles/auth.scss'
 import { Button } from '../components/button'
 import { useAuth } from '../hooks/useAuth'
-import { FormEvent, useState } from 'react'
-import { database } from '../services/firebase'
+import { FormEvent } from 'react'
 
 
 export function Home() {
@@ -25,19 +24,6 @@ export function Home() {
 
     async function handleJoinRoom(event: FormEvent){
         event.preventDefault()
-
-        if (roomCode.trim() == ""){
-            return;
-        }
-
-        const roomRef = await database.ref(`rooms/${roomCode}`).get();
-
-        if(!roomRef.exists()){
-            alert('Room does not exists.')
-            return;
-        }
-
-        history.push(`/rooms/${roomCode}`)
 
     }
 
@@ -62,8 +48,6 @@ export function Home() {
                         <input
                             type='text'
                             placeholder="Digite o codigo da sala"
-                            onChange={(event) => setRoomCode(event.target.value)}
-                            value={roomCode}
                         />
                         <Button type="submit">
                             Entrar na sala

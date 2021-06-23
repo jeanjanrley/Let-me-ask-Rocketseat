@@ -34,10 +34,7 @@ export function Home() {
 
         if(!roomRef.exists()){
             alert('Room does not exists.')
-            return;
         }
-
-        history.push(`/rooms/${roomCode}`)
 
     }
 
