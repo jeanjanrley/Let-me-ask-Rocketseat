@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import {BrowserRouter, Route, } from 'react-router-dom'
 
 import { NewRoom } from "./pages/NewRoom";
 import {Home} from './pages/Home'
@@ -16,11 +16,9 @@ function App() {
 
     <BrowserRouter>
       <AuthContextProvider>
-        <Switch>
-          <Route path="/" exact component={Home}/>
-          <Route path="/rooms/new" component={NewRoom}/>
-          <Route path="/rooms/:id" component={Room}/>
-        </Switch>
+        <Route path="/" exact component={Home}/>
+        <Route path="/rooms/new" exact component={NewRoom}/>
+        <Route path="/rooms/:id" component={Room}/>
       </AuthContextProvider>
 
     </BrowserRouter>
