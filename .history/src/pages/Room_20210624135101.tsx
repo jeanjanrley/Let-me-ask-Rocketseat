@@ -4,9 +4,7 @@ import { Button } from '../components/button'
 import { RoomCode } from '../components/RoomCode'
 import '../styles/room.scss'
 import {useParams} from 'react-router-dom'
-import { useState, FormEvent} from 'react'
-import { useAuth } from '../hooks/useAuth'
-import { database } from '../services/firebase'
+import { useState } from 'react'
 
 
 
@@ -17,36 +15,17 @@ type RoomParams = {
 
 export function Room() {
 
-    const {user} = useAuth()
-
     const params = useParams<RoomParams>()
     const [newQuestion, setNewQuestion] = useState("")
 
     const roomId = params.id
 
-    async function handleSendQuestion(event: FormEvent){
-        event.preventDefault()
-
+    async function handleSendQuestion(){
         if(newQuestion.trim() == ''){
             return;
         }
 
-        if (!user){
-            throw new Error("You must be logged in")
-            
-        }
-
-        const question = {
-            content: newQuestion,
-            author:{
-                name: user.nome,
-                avatar: user.avatar,
-            },
-            IsHighlighted: false,
-            IsAnswer: false,
-        }
-
-        await database.ref(`rooms/${roomId}/questions`).push(question)
+        
     }
 
     return(
@@ -63,7 +42,7 @@ export function Room() {
                     <span>4 perguntas</span>
                 </div>
 
-                <form onSubmit={handleSendQuestion}>
+                <form>
                     <textarea
                     onChange = {event => setNewQuestion(event.target.value)}
                     value = {newQuestion}
@@ -71,7 +50,7 @@ export function Room() {
                     />
                 <div className="form-footer">
                     <span>Para enviar uma pergunta, <button>faça seu login</button></span>
-                    <Button type="submit" disabled={!user}>Eviar pergunta</Button>
+                    <Button type="submit">Eviar pergunta</Button>
                 </div>
 
                 </form>
