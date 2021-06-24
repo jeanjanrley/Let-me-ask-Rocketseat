@@ -9,28 +9,7 @@ import { useAuth } from '../hooks/useAuth'
 import { database } from '../services/firebase'
 
 
-type FirebaseQuestions = Record<string, {
-    author: {
-        name: string;
-        avatar: string;
-    }
-    content: string;
-    IsAnswered: boolean;
-    IsHighlighted: boolean;
 
-}>
-
-type Question = {
-    id: string;
-    author: {
-        name: string;
-        avatar: string;
-    }
-    content: string;
-    IsAnswered: boolean;
-    IsHighlighted: boolean;
-
-}
 
 type RoomParams = {
     id: string
@@ -42,30 +21,17 @@ export function Room() {
 
     const params = useParams<RoomParams>()
     const [newQuestion, setNewQuestion] = useState("")
-    const [questions, setQuestions] = useState<Question[]>([])
 
     const roomId = params.id
 
     useEffect(() => {
-        const roomRef = database.ref(`rooms/${roomId}`)
-
-        roomRef.once('value', room => {
-            const databaseRoom = room.val()
-            const firebaseQuestions: FirebaseQuestions =  databaseRoom.questions ?? {}
-
-            const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
-                return{
-                    id: key,
-                    author: value.author,
-                    content: value.content,
-                    IsAnswered: value.IsAnswered,
-                    IsHighlighted: value.IsHighlighted,
-                }
-            })
-
-            setQuestions(parsedQuestions)
-        })
-    }, [roomId])
+        console.log(roomId)
+        //const roomRef = database.ref(`rooms/${roomId}`)
+//
+        //roomRef.once("value", room => {
+        //    console.log(room.val)
+        //})
+    }, [])
 
     async function handleSendQuestion(event: FormEvent){
         event.preventDefault()
@@ -85,8 +51,8 @@ export function Room() {
                 name: user.nome,
                 avatar: user.avatar,
             },
-            IsAnswered: false,
             IsHighlighted: false,
+            IsAnswer: false,
         }
 
         await database.ref(`rooms/${roomId}/questions`).push(question)

@@ -53,17 +53,17 @@ export function Room() {
             const databaseRoom = room.val()
             const firebaseQuestions: FirebaseQuestions =  databaseRoom.questions ?? {}
 
-            const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
+            const parseQustions = Object.entries(firebaseQuestions).map(([key, value]) => {
                 return{
                     id: key,
+                    content: value,
                     author: value.author,
-                    content: value.content,
-                    IsAnswered: value.IsAnswered,
                     IsHighlighted: value.IsHighlighted,
+                    IsAnswered: value.IsAnswered,
                 }
             })
 
-            setQuestions(parsedQuestions)
+            setQuestions(parseQustions)
         })
     }, [roomId])
 
@@ -85,8 +85,8 @@ export function Room() {
                 name: user.nome,
                 avatar: user.avatar,
             },
-            IsAnswered: false,
             IsHighlighted: false,
+            IsAnswered: false,
         }
 
         await database.ref(`rooms/${roomId}/questions`).push(question)

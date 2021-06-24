@@ -20,7 +20,7 @@ type FirebaseQuestions = Record<string, {
 
 }>
 
-type Question = {
+type Questions = {
     id: string;
     author: {
         name: string;
@@ -42,7 +42,7 @@ export function Room() {
 
     const params = useParams<RoomParams>()
     const [newQuestion, setNewQuestion] = useState("")
-    const [questions, setQuestions] = useState<Question[]>([])
+    const [questions, setQuestions] = useState<Questions[]>([])
 
     const roomId = params.id
 
@@ -56,10 +56,10 @@ export function Room() {
             const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
                 return{
                     id: key,
+                    content: value,
                     author: value.author,
-                    content: value.content,
-                    IsAnswered: value.IsAnswered,
                     IsHighlighted: value.IsHighlighted,
+                    IsAnswered: value.IsAnswered,
                 }
             })
 
@@ -85,8 +85,8 @@ export function Room() {
                 name: user.nome,
                 avatar: user.avatar,
             },
-            IsAnswered: false,
             IsHighlighted: false,
+            IsAnswered: false,
         }
 
         await database.ref(`rooms/${roomId}/questions`).push(question)

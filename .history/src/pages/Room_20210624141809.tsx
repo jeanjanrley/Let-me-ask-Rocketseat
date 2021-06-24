@@ -4,33 +4,12 @@ import { Button } from '../components/button'
 import { RoomCode } from '../components/RoomCode'
 import '../styles/room.scss'
 import {useParams} from 'react-router-dom'
-import { useState, FormEvent, useEffect} from 'react'
+import { useState, FormEvent} from 'react'
 import { useAuth } from '../hooks/useAuth'
 import { database } from '../services/firebase'
 
 
-type FirebaseQuestions = Record<string, {
-    author: {
-        name: string;
-        avatar: string;
-    }
-    content: string;
-    IsAnswered: boolean;
-    IsHighlighted: boolean;
 
-}>
-
-type Question = {
-    id: string;
-    author: {
-        name: string;
-        avatar: string;
-    }
-    content: string;
-    IsAnswered: boolean;
-    IsHighlighted: boolean;
-
-}
 
 type RoomParams = {
     id: string
@@ -42,30 +21,8 @@ export function Room() {
 
     const params = useParams<RoomParams>()
     const [newQuestion, setNewQuestion] = useState("")
-    const [questions, setQuestions] = useState<Question[]>([])
 
     const roomId = params.id
-
-    useEffect(() => {
-        const roomRef = database.ref(`rooms/${roomId}`)
-
-        roomRef.once('value', room => {
-            const databaseRoom = room.val()
-            const firebaseQuestions: FirebaseQuestions =  databaseRoom.questions ?? {}
-
-            const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
-                return{
-                    id: key,
-                    author: value.author,
-                    content: value.content,
-                    IsAnswered: value.IsAnswered,
-                    IsHighlighted: value.IsHighlighted,
-                }
-            })
-
-            setQuestions(parsedQuestions)
-        })
-    }, [roomId])
 
     async function handleSendQuestion(event: FormEvent){
         event.preventDefault()
@@ -85,8 +42,8 @@ export function Room() {
                 name: user.nome,
                 avatar: user.avatar,
             },
-            IsAnswered: false,
             IsHighlighted: false,
+            IsAnswer: false,
         }
 
         await database.ref(`rooms/${roomId}/questions`).push(question)
@@ -116,12 +73,8 @@ export function Room() {
                     />
                 <div className="form-footer">
                     {user ? (
-                        <div className="user-info">
-                            <img src={user.avatar} alt={user.nome} />
-                            <span>{user.nome}</span>
-                        </div>
-                    ) : ( 
-                    <span>Para enviar uma pergunta, <button>faça seu login</button></span>
+
+                    ) : (<span>Para enviar uma pergunta, <button>faça seu login</button></span>
                      ) }
                     <Button type="submit" disabled={!user}>Eviar pergunta</Button>
                 </div>

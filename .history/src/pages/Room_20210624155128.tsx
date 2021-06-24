@@ -56,8 +56,8 @@ export function Room() {
             const parsedQuestions = Object.entries(firebaseQuestions).map(([key, value]) => {
                 return{
                     id: key,
+                    content: value,
                     author: value.author,
-                    content: value.content,
                     IsAnswered: value.IsAnswered,
                     IsHighlighted: value.IsHighlighted,
                 }

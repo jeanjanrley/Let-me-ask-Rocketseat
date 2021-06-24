@@ -57,7 +57,7 @@ export function Room() {
                 return{
                     id: key,
                     author: value.author,
-                    content: value.content,
+                    content: value.c,
                     IsAnswered: value.IsAnswered,
                     IsHighlighted: value.IsHighlighted,
                 }
