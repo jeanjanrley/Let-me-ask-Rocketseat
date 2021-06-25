@@ -2,7 +2,7 @@ import logoImg from '../assets/images/logo.svg'
 import { Button } from '../components/button'
 import { RoomCode } from '../components/RoomCode'
 import '../styles/room.scss'
-import {useHistory, useParams} from 'react-router-dom'
+import {useParams} from 'react-router-dom'
 import { Question } from '../components/Question'
 import { useRoom } from '../hooks/useRoom'
 import deleteImage from '../assets/images/delete.svg'
@@ -19,14 +19,14 @@ export function AdminRoom() {
     const params = useParams<RoomParams>()
     const roomId = params.id
     const {title, questions} = useRoom(roomId)
-    const history = useHistory()
+    const history = 
 
     async function handleEndRoom(){
         await database.ref(`rooms/${roomId}`).update({
-            endAt: new Date(),
+            andAt: new Date(),
         })
 
-        history.push('/')
+        history.pushState
     }
 
     async function handleDeleteQueestion(questionId: string){

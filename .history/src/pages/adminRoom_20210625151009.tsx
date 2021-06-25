@@ -19,14 +19,14 @@ export function AdminRoom() {
     const params = useParams<RoomParams>()
     const roomId = params.id
     const {title, questions} = useRoom(roomId)
-    const history = useHistory()
+    const history = useHistory
 
     async function handleEndRoom(){
         await database.ref(`rooms/${roomId}`).update({
-            endAt: new Date(),
+            andAt: new Date(),
         })
 
-        history.push('/')
+        history.pushState
     }
 
     async function handleDeleteQueestion(questionId: string){

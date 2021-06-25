@@ -23,10 +23,10 @@ export function AdminRoom() {
 
     async function handleEndRoom(){
         await database.ref(`rooms/${roomId}`).update({
-            endAt: new Date(),
+            andAt: new Date(),
         })
 
-        history.push('/')
+        history.pushState
     }
 
     async function handleDeleteQueestion(questionId: string){
