@@ -58,9 +58,8 @@ export function Room() {
         } else{
             await database.ref(`rooms/${roomId}/questions/${questionId}/likes`).push({
                 authorId: user?.id,
-        })
+        }
     }
-}
 
     return(
         <div id="page-room">
