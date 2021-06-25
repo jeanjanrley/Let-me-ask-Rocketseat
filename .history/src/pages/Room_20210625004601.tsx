@@ -50,7 +50,7 @@ export function Room() {
     useEffect(() => {
         const roomRef = database.ref(`rooms/${roomId}`)
 
-        roomRef.on('value', room => {
+        roomRef.once('value', room => {
             const databaseRoom = room.val()
             const firebaseQuestions: FirebaseQuestions =  databaseRoom.questions ?? {}
 
@@ -64,7 +64,7 @@ export function Room() {
                 }
             })
             
-            setTitle(databaseRoom.title)
+            setTitle(da)
             setQuestions(parsedQuestions)
         })
     }, [roomId])
@@ -106,8 +106,8 @@ export function Room() {
             </header>
             <main>
                 <div className="room-title">
-                    <h1>Sala - {title}</h1>
-                    {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
+                    <h1>Sala React</h1>
+                    <span>4 perguntas</span>
                 </div>
 
                 <form onSubmit={handleSendQuestion}>
