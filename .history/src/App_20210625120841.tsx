@@ -8,7 +8,6 @@ import './styles/global.scss'
 
 import { AuthContextProvider } from './contexts/AuthContext'
 import { Room } from './pages/Room';
-import { AdminRoom } from './pages/adminRoom';
 
 function App() {
 
