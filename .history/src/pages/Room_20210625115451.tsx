@@ -7,7 +7,6 @@ import { useState, FormEvent, useEffect} from 'react'
 import { useAuth } from '../hooks/useAuth'
 import { database } from '../services/firebase'
 import { Question } from '../components/Question'
-import { useRoom } from '../hooks/useRoom'
 
 
 
@@ -21,7 +20,7 @@ export function Room() {
     const params = useParams<RoomParams>()
     const [newQuestion, setNewQuestion] = useState("")
     const roomId = params.id
-    const {title, questions} = useRoom(roomId)
+    const {} = 
 
     
 
