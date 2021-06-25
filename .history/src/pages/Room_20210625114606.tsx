@@ -42,7 +42,7 @@ export function Room() {
 
     const params = useParams<RoomParams>()
     const [newQuestion, setNewQuestion] = useState("")
-    const [questions, setQuestions] = useState<QuestionType[]>([])
+    const [questions, setQuestions] = useState<Question[]>([])
     const [title, setTitle] = useState("")
 
     const roomId = params.id
