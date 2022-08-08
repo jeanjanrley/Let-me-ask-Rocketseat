@@ -1,15 +1,13 @@
-import logoImg from '../assets/images/logo.svg'
-import { Button } from '../components/Button'
-import { RoomCode } from '../components/RoomCode'
-import '../styles/room.scss'
-import { useParams } from 'react-router-dom'
-import { useState, FormEvent, useEffect } from 'react'
-import { useAuth } from '../hooks/useAuth'
-import { database } from '../services/firebase'
-import { Question } from '../components/Question'
-import { useRoom } from '../hooks/useRoom'
-
-
+import logoImg from "../assets/images/logo.svg";
+import { Button } from "../components/Button";
+import { RoomCode } from "../components/RoomCode";
+import "../styles/room.scss";
+import { useParams } from "react-router-dom";
+import { useState, FormEvent, useEffect } from "react";
+import { useAuth } from "../hooks/useAuth";
+import { database } from "../services/firebase";
+import { Question } from "../components/Question";
+import { useRoom } from "../hooks/useRoom";
 
 
 type RoomParams = {
@@ -17,23 +15,23 @@ type RoomParams = {
 }
 
 export function Room() {
-	const { user } = useAuth()
-	const params = useParams<RoomParams>()
-	const [newQuestion, setNewQuestion] = useState("")
-	const roomId = params.id
-	const { title, questions } = useRoom(roomId)
+	const { user } = useAuth();
+	const params = useParams<RoomParams>();
+	const [newQuestion, setNewQuestion] = useState("");
+	const roomId = params.id;
+	const { title, questions } = useRoom(roomId);
 
 
 
 	async function handleSendQuestion(event: FormEvent) {
-		event.preventDefault()
+		event.preventDefault();
 
-		if (newQuestion.trim() == '') {
+		if (newQuestion.trim() == "") {
 			return;
 		}
 
 		if (!user) {
-			throw new Error("You must be logged in")
+			throw new Error("You must be logged in");
 
 		}
 
@@ -45,20 +43,20 @@ export function Room() {
 			},
 			IsAnswered: false,
 			IsHighlighted: false,
-		}
+		};
 
-		await database.ref(`rooms/${roomId}/questions`).push(question)
+		await database.ref(`rooms/${roomId}/questions`).push(question);
 
-		setNewQuestion('')
+		setNewQuestion("");
 	}
 
 	async function handleLikeQuestion(questionId: string, likeId: string | undefined) {
 		if (likeId) {
-			await database.ref(`rooms/${roomId}/questions/${questionId}/likes/${likeId}`).remove()
+			await database.ref(`rooms/${roomId}/questions/${questionId}/likes/${likeId}`).remove();
 		} else {
 			await database.ref(`rooms/${roomId}/questions/${questionId}/likes`).push({
 				authorId: user?.id,
-			})
+			});
 		}
 	}
 
@@ -109,7 +107,7 @@ export function Room() {
 								{!question.IsAnswered && (
 									<>
 										<button
-											className={`like-button ${question.likeId ? `liked` : ''}`}
+											className={`like-button ${question.likeId ? "liked" : ""}`}
 											type="button"
 											aria-label="Marcar como gostei"
 											onClick={() => handleLikeQuestion(question.id, question.likeId)}
@@ -123,11 +121,11 @@ export function Room() {
 								)}
 
 							</Question>
-						)
+						);
 					})}
 				</div>
 
 			</main>
 		</div>
-	)
+	);
 }
